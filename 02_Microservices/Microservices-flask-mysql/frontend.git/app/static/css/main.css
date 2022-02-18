@@ -1,0 +1,12 @@
+body{
+    background-color:#DDD;
+}
+.img-block{
+    text-align:center;
+    height:150px;
+}
+.img-block img{
+
+    max-width:150px;
+    max-height:150px;
+}

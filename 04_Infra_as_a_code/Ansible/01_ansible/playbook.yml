@@ -1,0 +1,49 @@
+---
+
+- name: Prepare repositories on all nodes
+  hosts: linux
+  become: yes
+  become_method: sudo
+  tasks:
+    
+    - name: Yum clean all 
+      shell: yum clean all
+
+    - name: Refresh yum makecache
+      shell: yum makecache
+      ignore_errors: true 
+
+    - name: Disable Firewall 
+      shell: systemctl stop firewalld && systemctl disable firewalld &&  systemctl mask firewalld
+      ignore_errors: true 
+
+    - name: yum install python-pip
+      # shell: yum install python-pip -y
+      yum: name=python3-pip state=present
+
+    - name: pip install --upgrade jinja2
+      shell: pip3 install --upgrade jinja2
+
+- name: Prepare repositories on all nodes
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    
+    - name: Yum clean all 
+      shell: yum clean all
+
+    - name: Refresh yum makecache
+      shell: yum makecache
+      ignore_errors: true 
+
+    - name: Disable Firewall 
+      shell: systemctl stop firewalld && systemctl disable firewalld &&  systemctl mask firewalld
+      ignore_errors: true 
+
+    - name: yum install python-pip
+      # shell: yum install python-pip -y
+      yum: name=python3-pip state=present
+
+    - name: pip install --upgrade jinja2
+      shell: pip3 install --upgrade jinja2

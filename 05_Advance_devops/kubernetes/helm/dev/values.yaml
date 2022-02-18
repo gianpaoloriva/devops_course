@@ -1,0 +1,10 @@
+image:
+  tag: latest
+  pullPolicy: Always 
+hpa:
+  enabled: false
+go-demo-9-db:
+  replicaSet:
+    enabled: false
+  persistence:
+    enabled: false

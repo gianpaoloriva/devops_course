@@ -1,0 +1,28 @@
+[all]
+winad1 ansible_ssh_host=52.208.12.25
+
+
+###WINDOWS SERVERS###
+[windows:children]
+win_dc
+win_web
+
+[win_dc]
+winad1
+
+[win_web]
+#winweb1
+
+
+[windows:vars]
+#Tell Ansible to communicate of WinRM and use HTTPS port 5986
+ansible_connection=winrm
+ansible_port=5986
+
+#Setting server certificate validation flag to ignore for self-signed cert in DEV only
+ansible_winrm_server_cert_validation=ignore 
+
+#Ansible user account to use for windows machines
+ansible_user=Administrator
+
+

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsvp-db
+  labels:
+    appdb: rsvpdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      appdb: rsvpdb
+  template:
+    metadata:
+      labels:
+        appdb: rsvpdb
+    spec:
+      containers:
+      - name: rsvp-db
+        image: mongo
+        ports:
+        - containerPort: 27017
+

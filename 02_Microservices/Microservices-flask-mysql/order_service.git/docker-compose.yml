@@ -1,0 +1,27 @@
+version: '3'
+
+volumes:
+  order-db-data:
+
+services:
+  order:
+    platform: linux/x86_64
+    build:
+      context: .
+    ports:
+      - 80:5000
+    volumes:
+      - ./app:/app
+    links:
+      - order_db
+    depends_on:
+      - order_db
+
+  order_db:
+    platform: linux/x86_64
+    image: mysql:5.7.37
+    volumes:
+      - product-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=order

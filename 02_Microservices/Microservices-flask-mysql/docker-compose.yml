@@ -1,0 +1,110 @@
+version: '3'
+
+volumes:
+  product-node-modules:
+  user-node-modules:
+  order-node-modules:
+  product-db-data:
+  user-db-data:
+  order-db-data:
+
+networks:
+  order-network:
+    driver: bridge
+
+services:
+  frontend:
+    platform: linux/x86_64
+    build:
+      context: ./frontend.git/
+    ports:
+      - 80:5000
+    volumes:
+      - ./frontend.git/app:/app
+    networks:
+      - order-network
+
+  product:
+    platform: linux/x86_64
+    build:
+      context: ./product_service.git/
+    ports:
+      - 8081:5000
+    volumes:
+      - ./product_service.git/app:/app
+      - product-node-modules:/app/node_modules
+    links:
+      - product_db
+    depends_on:
+      - product_db
+    networks:
+      - order-network
+
+  product_db:
+    platform: linux/x86_64
+    image: mysql:5.7.37
+    ports:
+      - 3306:3306
+    volumes:
+      - product-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=product
+    networks:
+      - order-network
+
+  user:
+    platform: linux/x86_64
+    build:
+      context: ./user_service.git/
+    ports:
+      - 8082:5000
+    volumes:
+      - ./user_service.git/app:/app
+      - user-node-modules:/app/node_modules
+    depends_on:
+      - user_db
+    networks:
+      - order-network
+
+  user_db:
+    platform: linux/x86_64
+    image: mysql:5.7.37
+    ports:
+      - 3307:3306
+    volumes:
+      - user-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=user
+    networks:
+      - order-network
+
+
+  order:
+    platform: linux/x86_64
+    build:
+      context: ./order_service.git/
+    ports:
+      - 8083:5000
+    volumes:
+      - ./order_service.git/app:/app
+      - order-node-modules:/app/node_modules
+    depends_on:
+      - order_db
+    networks:
+      - order-network
+
+  order_db:
+    platform: linux/x86_64
+    image: mysql:5.7.37
+    ports:
+      - 3308:3306
+    volumes:
+      - order-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=order
+    networks:
+      - order-network
+

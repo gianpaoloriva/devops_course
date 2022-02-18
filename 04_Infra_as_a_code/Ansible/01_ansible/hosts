@@ -1,0 +1,12 @@
+[all]
+ec2-34-245-213-171.eu-west-1.compute.amazonaws.com
+
+[linux]
+pippo.vm.com
+
+[winodows]
+
+
+[all:vars]
+ansible_ssh_user=ec2-user 
+ansible_ssh_private_key_file=../aws-key.pem

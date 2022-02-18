@@ -1,0 +1,33 @@
+version: '3'
+
+volumes:
+  user-db-data:
+
+networks:
+  user-network:
+    driver: bridge
+
+services:
+  user:
+    platform: linux/x86_64
+    build:
+      context: .
+    ports:
+      - 8082:5000
+    volumes:
+      - ./app:/app
+    depends_on:
+      - user_db
+    networks:
+      - user-network
+
+  user_db:
+    platform: linux/x86_64
+    image: mysql:5.7.37
+    volumes:
+      - user-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=user
+    networks:
+      - user-network

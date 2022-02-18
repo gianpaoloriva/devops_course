@@ -1,0 +1,13 @@
+---
+- hosts: all
+  serial: 1
+  gather_facts: yes
+  tasks:
+    - name: Restarting the Spooler service...
+      win_service:
+        name: spooler
+        state: restarted
+      register: service_info
+
+    #- debug: 
+    #  msg: "{{ service_info.stdout_lines }}"

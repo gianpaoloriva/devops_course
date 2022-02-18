@@ -1,0 +1,10 @@
+---
+  - name: Install Node.js (npm plus all its dependencies).
+    become: true
+    become_method: sudo
+    yum: name=npm state=present enablerepo=epel
+
+  - name: Install forever module (to run our Node.js app).
+    become: true
+    become_method: sudo
+    npm: name=forever global=yes state=present

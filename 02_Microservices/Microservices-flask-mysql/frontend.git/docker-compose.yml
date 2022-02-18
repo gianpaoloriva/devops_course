@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  frontend:
+    platform: linux/x86_64
+    build:
+      context: .
+    ports:
+      - 80:5000
+    volumes:
+      - ./app:/app

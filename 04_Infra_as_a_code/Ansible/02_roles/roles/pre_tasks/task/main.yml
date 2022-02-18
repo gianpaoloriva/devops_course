@@ -1,0 +1,24 @@
+---
+  - name: Import Remi GPG key.
+    become: true
+    become_method: sudo
+    rpm_key:
+        key: "https://rpms.remirepo.net/RPM-GPG-KEY-remi"
+        state: present
+
+  - name: Install Remi repo.
+    become: true
+    become_method: sudo
+    yum:
+      name: "https://rpms.remirepo.net/enterprise/remi-release-7.rpm"
+      state: present
+
+  - name: Install EPEL repo.
+    become: true
+    become_method: sudo
+    yum: name=epel-release state=present
+
+  - name: Ensure firewalld is stopped (since this is a test server).
+    become: true
+    become_method: sudo
+    service: name=firewalld state=stopped
