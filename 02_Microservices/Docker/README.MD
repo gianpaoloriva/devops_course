@@ -20,15 +20,15 @@ open a new command line
 
 --> go to https://hub.docker.com
   
-    docker tag firstdocker gianpaoloriva/get-started:part2
+    docker tag firstdocker YOURREPO/get-started:part2
 
 --> push from DockerHub
 
-    docker push gianpaoloriva/get-started:part2
+    docker push YOURREPO/get-started:part2
 
 --> pull from DockerHub
 
-    docker run -p 4000:80 gianpaoloriva/get-started:part2
+    docker run -p 4000:80 YOURREPO/get-started:part2
 
  
 ## Bulletin Board
