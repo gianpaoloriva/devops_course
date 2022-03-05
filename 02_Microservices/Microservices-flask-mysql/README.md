@@ -3,7 +3,7 @@ Install the containers.
 Run the following commands.
 
 ```
-$ docker-compose -f docker-compose.deploy.yml up -d
+$ docker-compose -f docker-compose.yml up -d
 ```
 Check that all the containers are running
 ```
@@ -21,13 +21,19 @@ f63fb7b63efb        mysql:5.7.22           "docker-entrypoint.s…"   18 hours a
 
 ## To rebuild the Docker images and recreate the containers
 ```
-$ docker-compose -f docker-compose.deploy.yml build
+$ docker-compose -f docker-compose.yml build
 ```
 Then run the following to recreate the containers
 ```
-$ docker-compose -f docker-compose.deploy.yml up -d
+$ docker-compose -f docker-compose.yml up -d
 ```
 ## Add products
 ```
-docker exec -i frontendgit_product_1 python add_products.py
+docker exec -i microservices-flask-mysql-product-1 python add_products.py
+
+mySql Connection
+root - test
+
 ```
+
+thanks to https://github.com/pfwd 
